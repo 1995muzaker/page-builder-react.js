@@ -1,15 +1,16 @@
 import React from "react";
+import { TestimonialDiv, InnerDiv } from "../../styles/Testimonial";
 
 const Testimonial = () => {
   return (
-    <div>
+    <TestimonialDiv>
       <h1>Lorem Ipsum</h1>
-      <div>
-        <h4>Lorem ipsum</h4>
-        <h4>Lorem ipsum</h4>
-        <h4>Lorem ipsum</h4>
-      </div>
-    </div>
+      <InnerDiv>
+        <img src="/section.png" />
+        <img src="/section.png" />
+        <img src="/section.png" />
+      </InnerDiv>
+    </TestimonialDiv>
   );
 };
 
