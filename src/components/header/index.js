@@ -1,13 +1,30 @@
 import React from "react";
 import { HeaderDiv, Logo, HeaderList } from "../../styles/Header";
 import { FaFacebookF, FaTwitter, FaGooglePlusG } from "react-icons/fa";
+import TextEdit from "./TextEdit";
 
-const Header = () => {
+const Header = ({ zoomPicIn, zoomPicOut, height, show, toggleEdit }) => {
+  const handleClick = (event) => {
+    console.log("handleClick", event.target.name);
+    eval(this[event.target.name]).bind(this)(event);
+  };
+  const helloWorld = () => {
+    this.setState({ message: "Hello, World!" });
+  };
   return (
     <HeaderDiv>
-      <Logo>
-        <img src="/logo.png" alt="logo" />
-      </Logo>
+      <div>
+        {show ? (
+          <div>
+            <button onClick={zoomPicOut}>-</button>
+            <button onClick={zoomPicIn}>+</button>
+          </div>
+        ) : null}
+        <Logo onClick={toggleEdit}>
+          <img src="/logo.png" alt="logo" height={height} />
+        </Logo>
+      </div>
+
       <HeaderList>
         <ul>
           <li>
@@ -21,13 +38,15 @@ const Header = () => {
           </li>
         </ul>
         <div>
-          <p>jane doe | sales development representative</p>
-          <p>
-            Email: <a href="mailto:janedoe@gmail.com">janedoe@gmail.com</a>
-          </p>
-          <p>
-            Tel: <a href="tel:71837183718">71837183718</a>
-          </p>
+          <TextEdit
+            value="jane doe | sales development representative"
+            editClassName="form-control"
+          />
+          <TextEdit
+            value=" Email: janedoe@gmail.com"
+            editClassName="form-control"
+          />
+          <TextEdit value="Tel: 71837183718" editClassName="form-control" />
         </div>
       </HeaderList>
     </HeaderDiv>
