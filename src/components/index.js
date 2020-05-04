@@ -88,8 +88,6 @@ class Builder extends React.Component {
     // window.localStorage.setItem("height", JSON.stringify(this.state.height));
     this.setState({
       height: this.state.height + 20,
-      sectionHeight: this.state.sectionHeight + 20,
-      testHeight: this.state.testHeight + 20,
     });
   };
 
@@ -99,7 +97,39 @@ class Builder extends React.Component {
     // window.localStorage.setItem("height", JSON.stringify(this.state.height));
     this.setState({
       height: this.state.height - 20,
+    });
+  };
+
+  zoomCoverIn = (e) => {
+    e.preventDefault();
+    // window.localStorage.setItem("height", JSON.stringify(this.state.height));
+    this.setState({
+      sectionHeight: this.state.sectionHeight + 20,
+    });
+  };
+
+  zoomCoverOut = (e) => {
+    e.preventDefault();
+
+    // window.localStorage.setItem("height", JSON.stringify(this.state.height));
+    this.setState({
       sectionHeight: this.state.sectionHeight - 20,
+    });
+  };
+
+  zoomThumbnailIn = (e) => {
+    e.preventDefault();
+    // window.localStorage.setItem("height", JSON.stringify(this.state.height));
+    this.setState({
+      testHeight: this.state.testHeight + 20,
+    });
+  };
+
+  zoomThumbnailOut = (e) => {
+    e.preventDefault();
+
+    // window.localStorage.setItem("height", JSON.stringify(this.state.height));
+    this.setState({
       testHeight: this.state.testHeight - 20,
     });
   };
@@ -210,16 +240,16 @@ class Builder extends React.Component {
           />
           <Section
             height={sectionHeight}
-            zoomPicIn={this.zoomPicIn}
-            zoomPicOut={this.zoomPicOut}
+            zoomPicIn={this.zoomCoverIn}
+            zoomPicOut={this.zoomCoverOut}
             toggleSection={this.toggleSection}
             show={showSection}
           />
           <Testimonial
             height={testHeight}
-            zoomPicIn={this.zoomPicIn}
-            zoomPicOut={this.zoomPicOut}
-            toggleSection={this.toggleTest}
+            zoomPicIn={this.zoomThumbnailIn}
+            zoomPicOut={this.zoomThumbnailOut}
+            toggleTest={this.toggleTest}
             show={showTest}
           />
           <Save storeData={this.storeData} />

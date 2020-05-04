@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { HeaderDiv, Logo, HeaderList } from "../../styles/Header";
 import { FaFacebookF, FaTwitter, FaGooglePlusG } from "react-icons/fa";
-import TextEdit from "./TextEdit";
 import TextEditView from "./TextEditView";
 
 const Header = ({
