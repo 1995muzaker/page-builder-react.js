@@ -60,6 +60,7 @@ class Section extends React.Component {
       aspect,
       showImage,
     } = this.state;
+    const { show, toggleSection, zoomPicOut, zoomPicIn, height } = this.props;
     return (
       <SectionDiv>
         <h1>The Lorem Ipsum dolor</h1>
@@ -120,6 +121,15 @@ class Section extends React.Component {
               ) : null}
             </div>
           )}
+          {show ? (
+            <div>
+              <button onClick={zoomPicOut}>-</button>
+              <button onClick={zoomPicIn}>+</button>
+            </div>
+          ) : null}
+          <div onClick={toggleSection}>
+            <img src="/section.png" alt="logo" height={height} />
+          </div>
         </div>
         <CallToAction>
           <button>Button 1</button>

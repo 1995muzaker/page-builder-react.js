@@ -7,6 +7,10 @@ class Builder extends React.Component {
   state = {
     height: 100,
     show: false,
+    showSection: false,
+    showTest: false,
+    testHeight: 150,
+    sectionHeight: 500,
     title: "John Doe",
     description: "Sale Developement Representative",
     email: "johndoe@gmail.com",
@@ -49,17 +53,38 @@ class Builder extends React.Component {
       show: !this.state.show,
     });
   };
+
+  toggleTest = () => {
+    this.setState({
+      showTest: !this.state.showTest,
+    });
+  };
+
+  toggleSection = () => {
+    this.setState({
+      showSection: !this.state.showSection,
+    });
+  };
+
   zoomPicIn = (e) => {
     e.preventDefault();
-    window.localStorage.setItem("height", JSON.stringify(this.state.height));
-    this.setState({ height: this.state.height + 20 });
+    // window.localStorage.setItem("height", JSON.stringify(this.state.height));
+    this.setState({
+      height: this.state.height + 20,
+      sectionHeight: this.state.sectionHeight + 20,
+      testHeight: this.state.testHeight + 20,
+    });
   };
 
   zoomPicOut = (e) => {
     e.preventDefault();
 
-    window.localStorage.setItem("height", JSON.stringify(this.state.height));
-    this.setState({ height: this.state.height - 20 });
+    // window.localStorage.setItem("height", JSON.stringify(this.state.height));
+    this.setState({
+      height: this.state.height - 20,
+      sectionHeight: this.state.sectionHeight - 20,
+      testHeight: this.state.testHeight - 20,
+    });
   };
 
   onDragStart = (e, id) => {
@@ -94,7 +119,18 @@ class Builder extends React.Component {
   };
 
   render() {
-    const { height, show, description, email, tel, title } = this.state;
+    const {
+      height,
+      show,
+      description,
+      email,
+      tel,
+      title,
+      sectionHeight,
+      showSection,
+      testHeight,
+      showTest,
+    } = this.state;
 
     return (
       <React.Fragment>
@@ -135,8 +171,20 @@ class Builder extends React.Component {
             title={title}
             handleInputChange={this.handleInputChange}
           />
-          <Section />
-          <Testimonial />
+          <Section
+            height={sectionHeight}
+            zoomPicIn={this.zoomPicIn}
+            zoomPicOut={this.zoomPicOut}
+            toggleSection={this.toggleSection}
+            show={showSection}
+          />
+          <Testimonial
+            height={testHeight}
+            zoomPicIn={this.zoomPicIn}
+            zoomPicOut={this.zoomPicOut}
+            toggleSection={this.toggleTest}
+            show={showTest}
+          />
         </form>
       </React.Fragment>
     );
