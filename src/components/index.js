@@ -16,6 +16,9 @@ class Builder extends React.Component {
     description: "Sale Developement Representative",
     email: "johndoe@gmail.com",
     tel: "847004890",
+    sectionTitle: "The Lorem Ipsum dolor",
+    sectionDescription:
+      "The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor",
     items: [
       {
         id: 1,
@@ -183,6 +186,8 @@ class Builder extends React.Component {
     );
     window.localStorage.setItem("email", JSON.stringify(this.state.email));
     window.localStorage.setItem("tel", JSON.stringify(this.state.tel));
+    window.localStorage.setItem("sectionTitle", JSON.stringify(this.state.sectionTitle));
+    window.localStorage.setItem("sectionDescription", JSON.stringify(this.state.sectionDescription));
   };
 
   render() {
@@ -197,6 +202,8 @@ class Builder extends React.Component {
       showSection,
       testHeight,
       showTest,
+      sectionTitle,
+      sectionDescription,
     } = this.state;
 
     return (
@@ -244,6 +251,9 @@ class Builder extends React.Component {
             zoomPicOut={this.zoomCoverOut}
             toggleSection={this.toggleSection}
             show={showSection}
+            sectionTitle={sectionTitle}
+            sectionDescription={sectionDescription}
+            handleInputChange={this.handleInputChange}
           />
           <Testimonial
             height={testHeight}

@@ -2,6 +2,7 @@ import React from "react";
 import Cropper from "react-easy-crop";
 import { SectionDiv, CallToAction } from "../../styles/Section";
 import GetCropImage from "./GetCropImage";
+import TextEdit from "../header/TextEdit";
 
 class Section extends React.Component {
   state = {
@@ -60,15 +61,50 @@ class Section extends React.Component {
       aspect,
       showImage,
     } = this.state;
-    const { show, toggleSection, zoomPicOut, zoomPicIn, height } = this.props;
+    const {
+      show,
+      toggleSection,
+      zoomPicOut,
+      zoomPicIn,
+      height,
+      sectionTitle,
+      handleInputChange,
+      sectionDescription
+    } = this.props;
     return (
       <SectionDiv>
-        <h1>The Lorem Ipsum dolor</h1>
-        <p>
-          The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The
-          Lorem Ipsum dolor The Lorem Ipsum dolor
-          <br /> The Lorem Ipsum dolor The Lorem Ipsum dolor
-        </p>
+        <TextEdit
+          text={sectionTitle}
+          placeholder="Description for the task"
+          // childRef={textareaRef}
+          type="text"
+        >
+          <input
+            // ref={textareaRef}
+            name="sectionTitle"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
+            placeholder="Description for the task"
+            rows="5"
+            value={sectionTitle}
+            onChange={handleInputChange}
+          />
+        </TextEdit>
+        <TextEdit
+          text={sectionDescription}
+          placeholder="Description for the task"
+          // childRef={textareaRef}
+          type="text"
+        >
+          <textarea
+            // ref={textareaRef}
+            name="sectionDescription"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
+            placeholder="Description for the task"
+            rows="5"
+            value={sectionDescription}
+            onChange={handleInputChange}
+          />
+        </TextEdit>
         <div>
           {showImage ? (
             <div className="upload-member">
