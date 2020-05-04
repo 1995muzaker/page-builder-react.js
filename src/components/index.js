@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./header";
 import Section from "./section";
 import Testimonial from "./testimonial";
+import Save from "./save";
 
 class Builder extends React.Component {
   state = {
@@ -32,10 +33,26 @@ class Builder extends React.Component {
   };
 
   componentDidMount() {
-    const dataRetrieve = JSON.parse(window.localStorage.getItem("height"));
-    this.setState({
-      height: dataRetrieve,
-    });
+    this.getData();
+  }
+  getData() {
+    // for all items in state
+    for (let key in this.state) {
+      // if the key exists in localStorage
+      if (localStorage.hasOwnProperty(key)) {
+        // get the key's value from localStorage
+        let value = localStorage.getItem(key);
+
+        // parse the localStorage string and setState
+        try {
+          value = JSON.parse(value);
+          this.setState({ [key]: value });
+        } catch (e) {
+          // handle empty string
+          this.setState({ [key]: value });
+        }
+      }
+    }
   }
 
   handleInputChange = (e) => {
@@ -118,6 +135,26 @@ class Builder extends React.Component {
     this.draggedIdx = null;
   };
 
+  storeData = (e) => {
+    e.preventDefault();
+    window.localStorage.setItem("height", JSON.stringify(this.state.height));
+    window.localStorage.setItem(
+      "sectionHeight",
+      JSON.stringify(this.state.sectionHeight)
+    );
+    window.localStorage.setItem(
+      "testHeight",
+      JSON.stringify(this.state.testHeight)
+    );
+    window.localStorage.setItem("title", JSON.stringify(this.state.title));
+    window.localStorage.setItem(
+      "description",
+      JSON.stringify(this.state.description)
+    );
+    window.localStorage.setItem("email", JSON.stringify(this.state.email));
+    window.localStorage.setItem("tel", JSON.stringify(this.state.tel));
+  };
+
   render() {
     const {
       height,
@@ -185,6 +222,7 @@ class Builder extends React.Component {
             toggleSection={this.toggleTest}
             show={showTest}
           />
+          <Save storeData={this.storeData} />
         </form>
       </React.Fragment>
     );
