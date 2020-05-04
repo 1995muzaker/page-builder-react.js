@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { HeaderDiv, Logo, HeaderList } from "../../styles/Header";
 import { FaFacebookF, FaTwitter, FaGooglePlusG } from "react-icons/fa";
 import TextEdit from "./TextEdit";
+import TextEditView from "./TextEditView";
 
-const Header = ({ zoomPicIn, zoomPicOut, height, show, toggleEdit }) => {
-  const handleClick = (event) => {
-    console.log("handleClick", event.target.name);
-    eval(this[event.target.name]).bind(this)(event);
-  };
-  const helloWorld = () => {
-    this.setState({ message: "Hello, World!" });
-  };
+const Header = ({
+  zoomPicIn,
+  zoomPicOut,
+  height,
+  show,
+  toggleEdit,
+  description,
+  email,
+  tel,
+  title,
+  handleInputChange,
+}) => {
   return (
     <HeaderDiv>
       <div>
@@ -38,15 +43,13 @@ const Header = ({ zoomPicIn, zoomPicOut, height, show, toggleEdit }) => {
           </li>
         </ul>
         <div>
-          <TextEdit
-            value="jane doe | sales development representative"
-            editClassName="form-control"
+          <TextEditView
+            description={description}
+            email={email}
+            tel={tel}
+            title={title}
+            handleInputChange={handleInputChange}
           />
-          <TextEdit
-            value=" Email: janedoe@gmail.com"
-            editClassName="form-control"
-          />
-          <TextEdit value="Tel: 71837183718" editClassName="form-control" />
         </div>
       </HeaderList>
     </HeaderDiv>

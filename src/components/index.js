@@ -7,6 +7,10 @@ class Builder extends React.Component {
   state = {
     height: 100,
     show: false,
+    title: "John Doe",
+    description: "Sale Developement Representative",
+    email: "johndoe@gmail.com",
+    tel: "847004890",
     items: [
       {
         id: 1,
@@ -23,11 +27,6 @@ class Builder extends React.Component {
     ],
   };
 
-  
-  edit() {
-    this.setState({edit:edit!==false})
-  }
-
   componentDidMount() {
     const dataRetrieve = JSON.parse(window.localStorage.getItem("height"));
     this.setState({
@@ -35,17 +34,30 @@ class Builder extends React.Component {
     });
   }
 
+  handleInputChange = (e) => {
+    let input = e.target;
+    let name = e.target.name;
+    let value = input.value;
+
+    this.setState({
+      [name]: value,
+    });
+  };
+
   toggleEdit = () => {
     this.setState({
       show: !this.state.show,
     });
   };
-  zoomPicIn = () => {
+  zoomPicIn = (e) => {
+    e.preventDefault();
     window.localStorage.setItem("height", JSON.stringify(this.state.height));
     this.setState({ height: this.state.height + 20 });
   };
 
-  zoomPicOut = () => {
+  zoomPicOut = (e) => {
+    e.preventDefault();
+
     window.localStorage.setItem("height", JSON.stringify(this.state.height));
     this.setState({ height: this.state.height - 20 });
   };
@@ -82,7 +94,7 @@ class Builder extends React.Component {
   };
 
   render() {
-    const { height, show } = this.state;
+    const { height, show, description, email, tel, title } = this.state;
 
     return (
       <React.Fragment>
@@ -117,6 +129,11 @@ class Builder extends React.Component {
             zoomPicOut={this.zoomPicOut}
             toggleEdit={this.toggleEdit}
             show={show}
+            description={description}
+            email={email}
+            tel={tel}
+            title={title}
+            handleInputChange={this.handleInputChange}
           />
           <Section />
           <Testimonial />

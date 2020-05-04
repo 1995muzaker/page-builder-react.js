@@ -1,59 +1,38 @@
 import React from "react";
 
 class TextEdit extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: props.name,
-      type: props.type || "text",
-      value: props.value || "",
-      editClassName: props.editClassName,
-      edit: false,
-    };
-  }
-
-  focusInput = (event) => {
-    const value = event.target.value;
-    event.target.value = "";
-    event.target.value = value;
-    this.setState({ backup: this.state.value });
-  };
-
-  handleChange = (event) => {
-    this.setState({ value: event.target.value });
-  };
-
-  blurInput = () => {
-    this.setState({ edit: false });
+  state = {
+    isEditing: false,
   };
 
   keyInput = (event) => {
     if (event.key === "Escape") {
-      this.setState({ edit: false, value: this.state.backup });
+      this.setState({ isEditing: false });
     }
     if (event.key === "Enter") {
-      this.setState({ edit: false });
+      this.setState({ isEditing: false });
     }
   };
-
-  handleClick = () => {
-    this.setState({ edit: this.state.edit !== true });
-  };
   render() {
+    const { text, placeholder, children } = this.props;
     return (
-      (this.state.edit === true && (
-        <input
-          name={this.state.name}
-          type={this.state.type}
-          value={this.state.value}
-          className={this.state.editClassName}
-          autoFocus
-          onFocus={this.focusInput}
-          onChange={this.handleChange}
-          onBlur={this.blurInput}
-          onKeyUp={this.keyInput}
-        />
-      )) || <p onClick={this.handleClick}>{this.state.value}</p>
+      <section>
+        {this.state.isEditing ? (
+          <div
+            onBlur={() => this.setState({ isEditing: false })}
+            onKeyDown={(e) => this.keyInput(e)}
+          >
+            {children}
+          </div>
+        ) : (
+          <p
+            onClick={() => this.setState({ isEditing: true })}
+            className={`${text ? "text-black" : "text-gray-500"}`}
+          >
+            {text || placeholder || "Editable content"}
+          </p>
+        )}
+      </section>
     );
   }
 }

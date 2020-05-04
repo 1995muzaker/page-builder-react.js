@@ -39,3 +39,9 @@ export const HeaderList = styled.div`
     margin-bottom: 5px;
   }
 `;
+
+export const InnerEdit = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
