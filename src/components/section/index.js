@@ -78,19 +78,12 @@ class Section extends React.Component {
           />
         </TextEdit>
         <div>
-          <div className="upload-member">
-            <input
-              type="file"
-              required
-              onChange={
-                (({ target: { validity, files: file } }) =>
-                  validity.valid && this.addImg({ img: { file } }),
-                onFileChange)
-              }
-            />
-            <p>Upload Photo</p>
-          </div>
-          <Resize show={show} zoomPicIn={zoomPicIn} zoomPicOut={zoomPicOut} />
+          <Resize
+            show={show}
+            zoomPicIn={zoomPicIn}
+            zoomPicOut={zoomPicOut}
+            onFileChange={onFileChange}
+          />
 
           <ImgDialog
             croppedImage={croppedImage}

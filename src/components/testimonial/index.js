@@ -1,5 +1,6 @@
 import React from "react";
 import { TestimonialDiv, InnerDiv, ImgDiv } from "../../styles/Testimonial";
+import Resize from "../common";
 
 const Testimonial = ({
   show,
@@ -16,12 +17,7 @@ const Testimonial = ({
   return (
     <TestimonialDiv>
       <h1>Lorem Ipsum</h1>
-      {show ? (
-        <div>
-          <button onClick={zoomPicOut}>-</button>
-          <button onClick={zoomPicIn}>+</button>
-        </div>
-      ) : null}
+      <Resize show={show} zoomPicOut={zoomPicOut} zoomPicIn={zoomPicIn} />
       <InnerDiv onClick={(e) => toggleTest(e)}>
         {items.map((item, idx) => (
           <ImgDiv key={item.id} onDragOver={() => onDragOver(idx)}>
