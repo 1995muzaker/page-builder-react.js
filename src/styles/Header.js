@@ -1,5 +1,27 @@
 import styled from "styled-components";
 
+export const EditDiv = styled.div`
+  margin: 15px 50px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  & p{
+    margin-right: 10px;
+  }
+  & button {
+    background: #3568fa;
+    border: 0;
+    padding: 5px;
+    border-radius: 50%;
+    width: 36px;
+    margin-right: 30px;
+    color: #fff;
+    font-size: 23px;
+    cursor: pointer;
+    outline: 0;
+  }
+`;
+
 export const HeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;

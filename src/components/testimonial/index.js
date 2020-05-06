@@ -1,7 +1,18 @@
 import React from "react";
-import { TestimonialDiv, InnerDiv } from "../../styles/Testimonial";
+import { TestimonialDiv, InnerDiv, ImgDiv } from "../../styles/Testimonial";
 
-const Testimonial = ({ show, toggleTest, zoomPicOut, zoomPicIn, height }) => {
+const Testimonial = ({
+  show,
+  toggleTest,
+  zoomPicOut,
+  zoomPicIn,
+  height,
+  items,
+  onDragStart,
+  onDragOver,
+  onDragEnd,
+}) => {
+  console.log("data", items);
   return (
     <TestimonialDiv>
       <h1>Lorem Ipsum</h1>
@@ -12,9 +23,18 @@ const Testimonial = ({ show, toggleTest, zoomPicOut, zoomPicIn, height }) => {
         </div>
       ) : null}
       <InnerDiv onClick={(e) => toggleTest(e)}>
-        <img height={height} src="/section.png" />
-        <img height={height} src="/section.png" />
-        <img height={height} src="/section.png" />
+        {items.map((item, idx) => (
+          <ImgDiv key={item.id} onDragOver={() => onDragOver(idx)}>
+            <div
+              className="drag"
+              draggable
+              onDragStart={(e) => onDragStart(e, idx)}
+              onDragEnd={onDragEnd}
+            >
+              <img height={height} src={item.imgUrl} />
+            </div>
+          </ImgDiv>
+        ))}
       </InnerDiv>
     </TestimonialDiv>
   );

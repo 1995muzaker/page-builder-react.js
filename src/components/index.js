@@ -3,6 +3,8 @@ import Header from "./header";
 import Section from "./section";
 import Testimonial from "./testimonial";
 import Save from "./save";
+import { FaFacebookF, FaTwitter, FaGooglePlusG } from "react-icons/fa";
+import GetCropImage from "./section/GetCropImage";
 
 class Builder extends React.Component {
   state = {
@@ -19,20 +21,34 @@ class Builder extends React.Component {
     sectionTitle: "The Lorem Ipsum dolor",
     sectionDescription:
       "The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor",
+    buttonTxt: "button 1",
+    buttonTxtOne: "button 2",
+    buttonTxtTwo: "button 3",
     items: [
       {
         id: 1,
-        component: <Header />,
+        imgUrl: "/section1.png",
       },
       {
         id: 2,
-        component: <Section />,
+        imgUrl: "/section2.png",
       },
       {
         id: 3,
-        component: <Testimonial />,
+        imgUrl: "/section3.png",
       },
     ],
+    imageSrc: null,
+    crop: { x: 0, y: 0 },
+    zoom: 1,
+    aspect: 16 / 9,
+    croppedAreaPixels: null,
+    croppedImage: "/section.png",
+    showImage: true,
+
+    src: null,
+    cropResult: null,
+    showImg: true,
   };
 
   componentDidMount() {
@@ -57,6 +73,46 @@ class Builder extends React.Component {
       }
     }
   }
+
+  // upload image
+  toggleImage = (value) => this.setState({ showImage: value });
+
+  onCropChange = (crop) => {
+    this.setState({ crop });
+  };
+
+  onCropComplete = (croppedArea, croppedAreaPixels) => {
+    this.setState({ croppedAreaPixels });
+  };
+
+  onZoomChange = (zoom) => {
+    this.setState({ zoom });
+  };
+
+  onFileChange = async (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const imageDataUrl = await readFile(e.target.files[0]);
+      this.setState({
+        imageSrc: imageDataUrl,
+        crop: { x: 0, y: 0 },
+        zoom: 1,
+      });
+    }
+  };
+
+  showCroppedImage = async () => {
+    const croppedImage = await GetCropImage(
+      this.state.imageSrc,
+      this.state.croppedAreaPixels
+    );
+    this.setState({ croppedImage });
+  };
+
+  handleClose = () => {
+    this.setState({ croppedImage: null });
+  };
+
+  // ******************* //
 
   handleInputChange = (e) => {
     let input = e.target;
@@ -142,7 +198,6 @@ class Builder extends React.Component {
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text/html", e.target.parentNode);
     e.dataTransfer.setDragImage(e.target.parentNode, 20, 20);
-    localStorage.setItem("items", JSON.stringify(this.state.items[id]));
   };
 
   onDragOver = (id) => {
@@ -152,15 +207,11 @@ class Builder extends React.Component {
     if (this.draggedItem === draggedOverItem) {
       return;
     }
-
     // filter out the currently dragged item
     let items = this.state.items.filter((item) => item !== this.draggedItem);
 
     // add the dragged item after the dragged over item
     items.splice(id, 0, this.draggedItem);
-    // localStorage.getItem(JSON.parse('items'));
-    localStorage.getItem("items");
-    //  console.log(typeof retrievedObject,retrievedObject);
     this.setState({ items });
   };
 
@@ -186,8 +237,23 @@ class Builder extends React.Component {
     );
     window.localStorage.setItem("email", JSON.stringify(this.state.email));
     window.localStorage.setItem("tel", JSON.stringify(this.state.tel));
-    window.localStorage.setItem("sectionTitle", JSON.stringify(this.state.sectionTitle));
-    window.localStorage.setItem("sectionDescription", JSON.stringify(this.state.sectionDescription));
+    window.localStorage.setItem(
+      "sectionTitle",
+      JSON.stringify(this.state.sectionTitle)
+    );
+    window.localStorage.setItem("items", JSON.stringify(this.state.items));
+    // window.localStorage.setItem(
+    //   "src",
+    //   JSON.stringify(this.state.src)
+    // );
+    window.localStorage.setItem(
+      "cropResult",this.state.cropResult
+    );
+    window.localStorage.setItem("croppedImage", this.state.croppedImage);
+    window.localStorage.setItem(
+      "sectionDescription",
+      JSON.stringify(this.state.sectionDescription)
+    );
   };
 
   render() {
@@ -204,34 +270,23 @@ class Builder extends React.Component {
       showTest,
       sectionTitle,
       sectionDescription,
+      buttonTxt,
+      buttonTxtOne,
+      buttonTxtTwo,
+      imageSrc,
+      crop,
+      zoom,
+      croppedImage,
+      aspect,
+      showImage,
+
+      src,
+      cropResult,
+      showImg,
     } = this.state;
 
     return (
       <React.Fragment>
-        {/* {this.state.items.map((item, idx) => (
-          <li key={item.id} onDragOver={() => this.onDragOver(idx)}>
-            <div
-              className="drag"
-              draggable
-              onDragStart={(e) => this.onDragStart(e, idx)}
-              onDragEnd={this.onDragEnd}
-            >
-              <span>{item.component}</span>
-            </div>
-          </li>
-        ))} */}
-        {/* <li onDragOver={() => this.onDragOver(idx)}>
-          <div
-            className="drag"
-            draggable
-            onDragStart={(e) => this.onDragStart(e, idx)}
-            onDragEnd={this.onDragEnd}
-          >
-            <span>{this.state.items[0].component}</span>
-            <span>{this.state.items[1].component}</span>
-            <span>{this.state.items[2].component}</span>
-          </div>
-        </li> */}
         <form>
           <Header
             height={height}
@@ -244,6 +299,10 @@ class Builder extends React.Component {
             tel={tel}
             title={title}
             handleInputChange={this.handleInputChange}
+            onDragStart={this.onDragStart}
+            onDragOver={this.onDragOver}
+            onDragEnd={this.onDragEnd}
+            items={this.state.items}
           />
           <Section
             height={sectionHeight}
@@ -254,6 +313,21 @@ class Builder extends React.Component {
             sectionTitle={sectionTitle}
             sectionDescription={sectionDescription}
             handleInputChange={this.handleInputChange}
+            buttonTxt={buttonTxt}
+            buttonTxtOne={buttonTxtOne}
+            buttonTxtTwo={buttonTxtTwo}
+            imageSrc={imageSrc}
+            crop={crop}
+            zoom={zoom}
+            croppedImage={croppedImage}
+            aspect={aspect}
+            showImage={showImage}
+            toggleImage={this.toggleImage}
+            onCropChange={this.onCropChange}
+            onCropComplete={this.onCropComplete}
+            onZoomChange={this.onZoomChange}
+            onFileChange={this.onFileChange}
+            showCroppedImage={this.showCroppedImage}
           />
           <Testimonial
             height={testHeight}
@@ -261,12 +335,24 @@ class Builder extends React.Component {
             zoomPicOut={this.zoomThumbnailOut}
             toggleTest={this.toggleTest}
             show={showTest}
+            onDragStart={this.onDragStart}
+            onDragOver={this.onDragOver}
+            onDragEnd={this.onDragEnd}
+            items={this.state.items}
           />
           <Save storeData={this.storeData} />
         </form>
       </React.Fragment>
     );
   }
+}
+
+function readFile(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => resolve(reader.result), false);
+    reader.readAsDataURL(file);
+  });
 }
 
 export default Builder;

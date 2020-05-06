@@ -1,8 +1,8 @@
 import React from "react";
 import Cropper from "react-easy-crop";
 import { SectionDiv, CallToAction } from "../../styles/Section";
-import GetCropImage from "./GetCropImage";
 import TextEdit from "../header/TextEdit";
+import Resize from "../common";
 
 class Section extends React.Component {
   state = {
@@ -15,52 +15,7 @@ class Section extends React.Component {
     showImage: true,
   };
 
-  toggleImage = (value) => this.setState({ showImage: value });
-
-  onCropChange = (crop) => {
-    this.setState({ crop });
-  };
-
-  onCropComplete = (croppedArea, croppedAreaPixels) => {
-    this.setState({ croppedAreaPixels });
-  };
-
-  onZoomChange = (zoom) => {
-    this.setState({ zoom });
-  };
-
-  onFileChange = async (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const imageDataUrl = await readFile(e.target.files[0]);
-      this.setState({
-        imageSrc: imageDataUrl,
-        crop: { x: 0, y: 0 },
-        zoom: 1,
-      });
-    }
-  };
-
-  showCroppedImage = async () => {
-    const croppedImage = await GetCropImage(
-      this.state.imageSrc,
-      this.state.croppedAreaPixels
-    );
-    this.setState({ croppedImage });
-  };
-
-  handleClose = () => {
-    this.setState({ croppedImage: null });
-  };
-
   render() {
-    const {
-      imageSrc,
-      crop,
-      zoom,
-      croppedImage,
-      aspect,
-      showImage,
-    } = this.state;
     const {
       show,
       toggleSection,
@@ -69,26 +24,43 @@ class Section extends React.Component {
       height,
       sectionTitle,
       handleInputChange,
-      sectionDescription
+      sectionDescription,
+      buttonTxt,
+      buttonTxtOne,
+      buttonTxtTwo,
+      imageSrc,
+      crop,
+      zoom,
+      croppedImage,
+      aspect,
+      showImage,
+      toggleImage,
+      onCropChange,
+      onCropComplete,
+      onZoomChange,
+      onFileChange,
+      showCroppedImage,
     } = this.props;
     return (
       <SectionDiv>
-        <TextEdit
-          text={sectionTitle}
-          placeholder="Description for the task"
-          // childRef={textareaRef}
-          type="text"
-        >
-          <input
-            // ref={textareaRef}
-            name="sectionTitle"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
+        <h1>
+          <TextEdit
+            text={sectionTitle}
             placeholder="Description for the task"
-            rows="5"
-            value={sectionTitle}
-            onChange={handleInputChange}
-          />
-        </TextEdit>
+            // childRef={textareaRef}
+            type="text"
+          >
+            <input
+              // ref={textareaRef}
+              name="sectionTitle"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
+              placeholder="Description for the task"
+              rows="5"
+              value={sectionTitle}
+              onChange={handleInputChange}
+            />
+          </TextEdit>
+        </h1>
         <TextEdit
           text={sectionDescription}
           placeholder="Description for the task"
@@ -106,22 +78,26 @@ class Section extends React.Component {
           />
         </TextEdit>
         <div>
-          {showImage ? (
-            <div className="upload-member">
-              <input
-                type="file"
-                required
-                onChange={
-                  (({ target: { validity, files: file } }) =>
-                    validity.valid && this.addImg({ img: { file } }),
-                  this.onFileChange)
-                }
-              />
-              <p>Upload Photo</p>
-            </div>
-          ) : (
-            <ImgDialog imageSrc={croppedImage} toggleImage={this.toggleImage} />
-          )}
+          <div className="upload-member">
+            <input
+              type="file"
+              required
+              onChange={
+                (({ target: { validity, files: file } }) =>
+                  validity.valid && this.addImg({ img: { file } }),
+                onFileChange)
+              }
+            />
+            <p>Upload Photo</p>
+          </div>
+          <Resize show={show} zoomPicIn={zoomPicIn} zoomPicOut={zoomPicOut} />
+
+          <ImgDialog
+            croppedImage={croppedImage}
+            toggleImage={toggleImage}
+            toggleSection={toggleSection}
+            height={height}
+          />
 
           {imageSrc && (
             <div>
@@ -134,9 +110,9 @@ class Section extends React.Component {
                       zoom={zoom}
                       cropShape="square"
                       aspect={aspect}
-                      onCropChange={this.onCropChange}
-                      onCropComplete={this.onCropComplete}
-                      onZoomChange={this.onZoomChange}
+                      onCropChange={onCropChange}
+                      onCropComplete={onCropComplete}
+                      onZoomChange={onZoomChange}
                     />
                   </div>
 
@@ -144,8 +120,8 @@ class Section extends React.Component {
                     <button
                       type="button"
                       onClick={() => {
-                        this.showCroppedImage();
-                        this.toggleImage(false);
+                        showCroppedImage();
+                        toggleImage(false);
                       }}
                       variant="raised"
                       color="primary"
@@ -157,20 +133,66 @@ class Section extends React.Component {
               ) : null}
             </div>
           )}
-          {show ? (
-            <div>
-              <button onClick={zoomPicOut}>-</button>
-              <button onClick={zoomPicIn}>+</button>
-            </div>
-          ) : null}
-          <div onClick={toggleSection}>
+
+          {/* <div onClick={toggleSection}>
             <img src="/section.png" alt="logo" height={height} />
-          </div>
+          </div> */}
         </div>
         <CallToAction>
-          <button>Button 1</button>
-          <button>Button 2</button>
-          <button>Button 3</button>
+          <button onClick={(e) => e.preventDefault()}>
+            <TextEdit
+              text={buttonTxt}
+              placeholder="Description for the task"
+              // childRef={textareaRef}
+              type="text"
+            >
+              <input
+                // ref={textareaRef}
+                name="buttonTxt"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
+                placeholder="Description for the task"
+                rows="5"
+                value={buttonTxt}
+                onChange={handleInputChange}
+              />
+            </TextEdit>
+          </button>
+          <button onClick={(e) => e.preventDefault()}>
+            <TextEdit
+              text={buttonTxtOne}
+              placeholder="Description for the task"
+              // childRef={textareaRef}
+              type="text"
+            >
+              <input
+                // ref={textareaRef}
+                name="buttonTxtOne"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
+                placeholder="Description for the task"
+                rows="5"
+                value={buttonTxtOne}
+                onChange={handleInputChange}
+              />
+            </TextEdit>
+          </button>
+          <button onClick={(e) => e.preventDefault()}>
+            <TextEdit
+              text={buttonTxtTwo}
+              placeholder="Description for the task"
+              // childRef={textareaRef}
+              type="text"
+            >
+              <input
+                // ref={textareaRef}
+                name="buttonTxtTwo"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
+                placeholder="Description for the task"
+                rows="5"
+                value={buttonTxtTwo}
+                onChange={handleInputChange}
+              />
+            </TextEdit>
+          </button>
         </CallToAction>
       </SectionDiv>
     );
@@ -181,16 +203,14 @@ export default Section;
 
 const ImgDialog = (props) => (
   <div className="img-dialog">
-    {props.imageSrc && (
-      <img alt="Crop" style={{ maxWidth: "100%" }} src={props.imageSrc} />
+    {props.croppedImage && (
+      <img
+        alt="Crop"
+        height={props.height}
+        onClick={props.toggleSection}
+        style={{ maxWidth: "100%" }}
+        src={props.croppedImage}
+      />
     )}
   </div>
 );
-
-function readFile(file) {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.addEventListener("load", () => resolve(reader.result), false);
-    reader.readAsDataURL(file);
-  });
-}

@@ -2,6 +2,7 @@ import React from "react";
 import { HeaderDiv, Logo, HeaderList } from "../../styles/Header";
 import { FaFacebookF, FaTwitter, FaGooglePlusG } from "react-icons/fa";
 import TextEditView from "./TextEditView";
+import Resize from "../common";
 
 const Header = ({
   zoomPicIn,
@@ -16,42 +17,40 @@ const Header = ({
   handleInputChange,
 }) => {
   return (
-    <HeaderDiv>
-      <div>
-        {show ? (
-          <div>
-            <button onClick={zoomPicOut}>-</button>
-            <button onClick={zoomPicIn}>+</button>
-          </div>
-        ) : null}
-        <Logo onClick={toggleEdit}>
-          <img src="/logo.png" alt="logo" height={height} />
-        </Logo>
-      </div>
+    <React.Fragment>
+      <Resize show={show} zoomPicIn={zoomPicIn} zoomPicOut={zoomPicOut} />
 
-      <HeaderList>
-        <ul>
-          <li>
-            <FaFacebookF />
-          </li>
-          <li>
-            <FaTwitter />
-          </li>
-          <li>
-            <FaGooglePlusG />
-          </li>
-        </ul>
+      <HeaderDiv>
         <div>
-          <TextEditView
-            description={description}
-            email={email}
-            tel={tel}
-            title={title}
-            handleInputChange={handleInputChange}
-          />
+          <Logo onClick={toggleEdit}>
+            <img src="/logo.png" alt="logo" height={height} />
+          </Logo>
         </div>
-      </HeaderList>
-    </HeaderDiv>
+
+        <HeaderList>
+          <ul>
+            <li>
+              <FaFacebookF />
+            </li>
+            <li>
+              <FaTwitter />
+            </li>
+            <li>
+              <FaGooglePlusG />
+            </li>
+          </ul>
+          <div>
+            <TextEditView
+              description={description}
+              email={email}
+              tel={tel}
+              title={title}
+              handleInputChange={handleInputChange}
+            />
+          </div>
+        </HeaderList>
+      </HeaderDiv>
+    </React.Fragment>
   );
 };
 

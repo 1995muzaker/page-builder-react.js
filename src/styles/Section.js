@@ -35,5 +35,9 @@ export const CallToAction = styled.div`
     border: 5px;
     cursor: pointer;
     text-transform: uppercase;
+    & p {
+      margin: 0;
+      color: #fff;
+    }
   }
 `;

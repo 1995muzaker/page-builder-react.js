@@ -15,11 +15,16 @@ export const InnerDiv = styled.div`
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-around;
-  align-items:center;
+  align-items: center;
   box-sizing: border-box;
 
+  
+`;
+
+export const ImgDiv = styled.div`
+  width: 30%;
   & img {
-    width: 30%;
-    object-fit: contain;
+    width: 100%;
+    object-fit: cover;
   }
 `;
