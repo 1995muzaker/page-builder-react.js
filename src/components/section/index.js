@@ -10,16 +10,6 @@ import TextEdit from "../header/TextEdit";
 import Resize from "../common";
 
 class Section extends React.Component {
-  state = {
-    imageSrc: null,
-    crop: { x: 0, y: 0 },
-    zoom: 1,
-    aspect: 1 / 1,
-    croppedAreaPixels: null,
-    croppedImage: null,
-    showImage: true,
-  };
-
   render() {
     const {
       show,
@@ -45,21 +35,19 @@ class Section extends React.Component {
       onZoomChange,
       onFileChange,
       showCroppedImage,
+      removeLogo,
     } = this.props;
     return (
       <SectionDiv>
         <h1>
           <TextEdit
             text={sectionTitle}
-            placeholder="Description for the task"
-            // childRef={textareaRef}
+            placeholder="Title"
             type="text"
           >
             <input
-              // ref={textareaRef}
               name="sectionTitle"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
-              placeholder="Description for the task"
+              placeholder="Title"
               rows="5"
               value={sectionTitle}
               onChange={handleInputChange}
@@ -68,15 +56,13 @@ class Section extends React.Component {
         </h1>
         <TextEdit
           text={sectionDescription}
-          placeholder="Description for the task"
-          // childRef={textareaRef}
+          placeholder="Description"
           type="text"
         >
           <textarea
-            // ref={textareaRef}
             name="sectionDescription"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
-            placeholder="Description for the task"
+            placeholder="Description"
             rows="5"
             value={sectionDescription}
             onChange={handleInputChange}
@@ -88,6 +74,7 @@ class Section extends React.Component {
             zoomPicIn={zoomPicIn}
             zoomPicOut={zoomPicOut}
             onFileChange={onFileChange}
+            removeLogo={removeLogo}
           />
 
           <ImgDialog
@@ -140,15 +127,12 @@ class Section extends React.Component {
           <button onClick={(e) => e.preventDefault()}>
             <TextEdit
               text={buttonTxt}
-              placeholder="Description for the task"
-              // childRef={textareaRef}
+              placeholder="Text 1"
               type="text"
             >
               <input
-                // ref={textareaRef}
                 name="buttonTxt"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
-                placeholder="Description for the task"
+                placeholder="Text 1"
                 rows="5"
                 value={buttonTxt}
                 onChange={handleInputChange}
@@ -158,15 +142,12 @@ class Section extends React.Component {
           <button onClick={(e) => e.preventDefault()}>
             <TextEdit
               text={buttonTxtOne}
-              placeholder="Description for the task"
-              // childRef={textareaRef}
+              placeholder="Text 2"
               type="text"
             >
               <input
-                // ref={textareaRef}
                 name="buttonTxtOne"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
-                placeholder="Description for the task"
+                placeholder="Text 2"
                 rows="5"
                 value={buttonTxtOne}
                 onChange={handleInputChange}
@@ -176,15 +157,12 @@ class Section extends React.Component {
           <button onClick={(e) => e.preventDefault()}>
             <TextEdit
               text={buttonTxtTwo}
-              placeholder="Description for the task"
-              // childRef={textareaRef}
+              placeholder="Text 3"
               type="text"
             >
               <input
-                // ref={textareaRef}
                 name="buttonTxtTwo"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
-                placeholder="Description for the task"
+                placeholder="Text 3"
                 rows="5"
                 value={buttonTxtTwo}
                 onChange={handleInputChange}

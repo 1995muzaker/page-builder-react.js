@@ -8,7 +8,6 @@ const Resize = ({
   zoomPicIn,
   onFileChange,
   removeLogo,
-  deleteIcon,
 }) => {
   return (
     <React.Fragment>

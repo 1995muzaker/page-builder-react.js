@@ -5,8 +5,9 @@ export const TestimonialDiv = styled.div`
   padding: 0px;
   box-sizing: border-box;
 
-  & h1 {
+  & h3 {
     color: grey;
+    font-size: 20px;
   }
 `;
 

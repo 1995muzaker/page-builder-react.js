@@ -1,6 +1,8 @@
 import React from "react";
 import { TestimonialDiv, InnerDiv, ImgDiv } from "../../styles/Testimonial";
 import Resize from "../common";
+import { EditDiv } from "../../styles/Header";
+import TextEdit from "../header/TextEdit";
 
 const Testimonial = ({
   show,
@@ -12,12 +14,34 @@ const Testimonial = ({
   onDragStart,
   onDragOver,
   onDragEnd,
+  testimonialTitle,
+  handleInputChange,
 }) => {
   console.log("data", items);
   return (
     <TestimonialDiv>
-      <h1>Lorem Ipsum</h1>
-      <Resize show={show} zoomPicOut={zoomPicOut} zoomPicIn={zoomPicIn} />
+      <h3>
+        <TextEdit
+          text={testimonialTitle}
+          placeholder="Testimonial Title"
+          type="text"
+        >
+          <input
+            name="testimonialTitle"
+            placeholder="Testimonial Title"
+            rows="5"
+            value={testimonialTitle}
+            onChange={handleInputChange}
+          />
+        </TextEdit>
+      </h3>
+      {show ? (
+        <EditDiv>
+          <p>Resize</p>
+          <button onClick={zoomPicOut}>-</button>
+          <button onClick={zoomPicIn}>+</button>
+        </EditDiv>
+      ) : null}
       <InnerDiv onClick={(e) => toggleTest(e)}>
         {items.map((item, idx) => (
           <ImgDiv key={item.id} onDragOver={() => onDragOver(idx)}>

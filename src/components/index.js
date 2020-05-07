@@ -3,8 +3,8 @@ import Header from "./header";
 import Section from "./section";
 import Testimonial from "./testimonial";
 import Save from "./save";
-import { FaFacebookF, FaTwitter, FaGooglePlusG } from "react-icons/fa";
 import GetCropImage from "./section/GetCropImage";
+import Preview from "./preview";
 
 class Builder extends React.Component {
   state = {
@@ -21,6 +21,7 @@ class Builder extends React.Component {
     sectionTitle: "The Lorem Ipsum dolor",
     sectionDescription:
       "The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor",
+    testimonialTitle: "Lorem Ipsum",
     buttonTxt: "button 1",
     buttonTxtOne: "button 2",
     buttonTxtTwo: "button 3",
@@ -52,9 +53,9 @@ class Builder extends React.Component {
     croppedAreaPixels: null,
     croppedImage: "/section.png",
     showImage: true,
-
     src: null,
     cropResult: null,
+    preview: true,
   };
 
   componentDidMount() {
@@ -83,6 +84,12 @@ class Builder extends React.Component {
   removeLogo = () => {
     this.setState({
       croppedLogo: undefined,
+    });
+  };
+
+  removeBannner = () => {
+    this.setState({
+      croppedImage: undefined,
     });
   };
 
@@ -251,8 +258,14 @@ class Builder extends React.Component {
     this.draggedIdx = null;
   };
 
-  storeData = (e) => {
-    e.preventDefault();
+  showPreview = (value) => {
+    this.setState({
+      preview: value,
+    });
+  };
+
+  storeData = () => {
+    // e.preventDefault();
     window.localStorage.setItem("height", JSON.stringify(this.state.height));
     window.localStorage.setItem(
       "sectionHeight",
@@ -274,10 +287,22 @@ class Builder extends React.Component {
       JSON.stringify(this.state.sectionTitle)
     );
     window.localStorage.setItem("items", JSON.stringify(this.state.items));
-    // window.localStorage.setItem(
-    //   "src",
-    //   JSON.stringify(this.state.src)
-    // );
+    window.localStorage.setItem(
+      "testimonialTitle",
+      JSON.stringify(this.state.testimonialTitle)
+    );
+    window.localStorage.setItem(
+      "buttonTxt",
+      JSON.stringify(this.state.buttonTxt)
+    );
+    window.localStorage.setItem(
+      "buttonTxtOne",
+      JSON.stringify(this.state.buttonTxtOne)
+    );
+    window.localStorage.setItem(
+      "buttonTxtTwo",
+      JSON.stringify(this.state.buttonTxtTwo)
+    );
     window.localStorage.setItem("cropResult", this.state.cropResult);
     window.localStorage.setItem("croppedImage", this.state.croppedImage);
     window.localStorage.setItem("croppedLogo", this.state.croppedLogo);
@@ -320,72 +345,99 @@ class Builder extends React.Component {
 
     return (
       <React.Fragment>
-        <Header
-          height={height}
-          zoomPicIn={this.zoomPicIn}
-          zoomPicOut={this.zoomPicOut}
-          toggleEdit={this.toggleEdit}
-          show={show}
-          description={description}
-          email={email}
-          tel={tel}
-          title={title}
-          handleInputChange={this.handleInputChange}
-          onDragStart={this.onDragStart}
-          onDragOver={this.onDragOver}
-          onDragEnd={this.onDragEnd}
-          items={this.state.items}
-          imageSrc={logoImgSrc}
-          croppedImage={croppedLogo}
-          crop={cropLogo}
-          zoom={zoomLogo}
-          aspect={aspectLogo}
-          showImage={showImageLogo}
-          toggleImage={this.toggleLogo}
-          onCropChange={this.onCropChange}
-          onCropComplete={this.onCropComplete}
-          onZoomChange={this.onZoomChange}
-          onFileChange={this.onLogoChange}
-          showCroppedImage={this.showLogoImage}
-          removeLogo={this.removeLogo}
-        />
-        <Section
-          height={sectionHeight}
-          zoomPicIn={this.zoomCoverIn}
-          zoomPicOut={this.zoomCoverOut}
-          toggleSection={this.toggleSection}
-          show={showSection}
-          sectionTitle={sectionTitle}
-          sectionDescription={sectionDescription}
-          handleInputChange={this.handleInputChange}
-          buttonTxt={buttonTxt}
-          buttonTxtOne={buttonTxtOne}
-          buttonTxtTwo={buttonTxtTwo}
-          imageSrc={imageSrc}
-          crop={crop}
-          zoom={zoom}
-          croppedImage={croppedImage}
-          aspect={aspect}
-          showImage={showImage}
-          toggleImage={this.toggleImage}
-          onCropChange={this.onCropChange}
-          onCropComplete={this.onCropComplete}
-          onZoomChange={this.onZoomChange}
-          onFileChange={this.onFileChange}
-          showCroppedImage={this.showCroppedImage}
-        />
-        <Testimonial
-          height={testHeight}
-          zoomPicIn={this.zoomThumbnailIn}
-          zoomPicOut={this.zoomThumbnailOut}
-          toggleTest={this.toggleTest}
-          show={showTest}
-          onDragStart={this.onDragStart}
-          onDragOver={this.onDragOver}
-          onDragEnd={this.onDragEnd}
-          items={this.state.items}
-        />
-        <Save storeData={this.storeData} />
+        {this.state.preview ? (
+          <React.Fragment>
+            <Header
+              height={height}
+              zoomPicIn={this.zoomPicIn}
+              zoomPicOut={this.zoomPicOut}
+              toggleEdit={this.toggleEdit}
+              show={show}
+              description={description}
+              email={email}
+              tel={tel}
+              title={title}
+              handleInputChange={this.handleInputChange}
+              onDragStart={this.onDragStart}
+              onDragOver={this.onDragOver}
+              onDragEnd={this.onDragEnd}
+              items={this.state.items}
+              imageSrc={logoImgSrc}
+              croppedImage={croppedLogo}
+              crop={cropLogo}
+              zoom={zoomLogo}
+              aspect={aspectLogo}
+              showImage={showImageLogo}
+              toggleImage={this.toggleLogo}
+              onCropChange={this.onCropChange}
+              onCropComplete={this.onCropComplete}
+              onZoomChange={this.onZoomChange}
+              onFileChange={this.onLogoChange}
+              showCroppedImage={this.showLogoImage}
+              removeLogo={this.removeLogo}
+            />
+            <Section
+              height={sectionHeight}
+              zoomPicIn={this.zoomCoverIn}
+              zoomPicOut={this.zoomCoverOut}
+              toggleSection={this.toggleSection}
+              show={showSection}
+              sectionTitle={sectionTitle}
+              sectionDescription={sectionDescription}
+              handleInputChange={this.handleInputChange}
+              buttonTxt={buttonTxt}
+              buttonTxtOne={buttonTxtOne}
+              buttonTxtTwo={buttonTxtTwo}
+              imageSrc={imageSrc}
+              crop={crop}
+              zoom={zoom}
+              croppedImage={croppedImage}
+              aspect={aspect}
+              showImage={showImage}
+              toggleImage={this.toggleImage}
+              onCropChange={this.onCropChange}
+              onCropComplete={this.onCropComplete}
+              onZoomChange={this.onZoomChange}
+              onFileChange={this.onFileChange}
+              showCroppedImage={this.showCroppedImage}
+              removeLogo={this.removeBannner}
+            />
+            <Testimonial
+              height={testHeight}
+              zoomPicIn={this.zoomThumbnailIn}
+              zoomPicOut={this.zoomThumbnailOut}
+              toggleTest={this.toggleTest}
+              show={showTest}
+              onDragStart={this.onDragStart}
+              onDragOver={this.onDragOver}
+              onDragEnd={this.onDragEnd}
+              items={this.state.items}
+              testimonialTitle={this.state.testimonialTitle}
+              handleInputChange={this.handleInputChange}
+            />
+          </React.Fragment>
+        ) : (
+          <Preview
+            height={height}
+            testHeight={testHeight}
+            sectionHeight={sectionHeight}
+            description={description}
+            croppedImage={croppedImage}
+            croppedLogo={croppedLogo}
+            email={email}
+            tel={tel}
+            title={title}
+            sectionTitle={sectionTitle}
+            sectionDescription={sectionDescription}
+            buttonTxt={buttonTxt}
+            buttonTxtOne={buttonTxtOne}
+            buttonTxtTwo={buttonTxtTwo}
+            items={this.state.items}
+            testimonialTitle={this.state.testimonialTitle}
+          />
+        )}
+
+        <Save showPreview={this.showPreview} storeData={this.storeData} />
       </React.Fragment>
     );
   }
