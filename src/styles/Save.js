@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SaveDiv = styled.div`
   width: 100%;
-  padding: 15px 50px;
+  padding: 0;
   text-align: right;
   box-sizing: border-box;
   & button {

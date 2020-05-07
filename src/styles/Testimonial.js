@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const TestimonialDiv = styled.div`
   width: 100%;
-  padding: 20px 50px;
+  padding: 0px;
   box-sizing: border-box;
 
   & h1 {

@@ -13,6 +13,9 @@ const GlobalStyles = createGlobalStyle`
         * {
           box-sizing: border-box;
         }
+        body{
+          padding: 20px 50px
+        }
   `;
 
 export default GlobalStyles;

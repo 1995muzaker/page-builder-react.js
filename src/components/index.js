@@ -8,7 +8,7 @@ import GetCropImage from "./section/GetCropImage";
 
 class Builder extends React.Component {
   state = {
-    height: 100,
+    height: 80,
     show: false,
     showSection: false,
     showTest: false,
@@ -38,6 +38,13 @@ class Builder extends React.Component {
         imgUrl: "/section3.png",
       },
     ],
+    logoImgSrc: null,
+    croppedLogo: "/logo.png",
+    cropLogo: { x: 0, y: 0 },
+    zoomLogo: 1,
+    aspectLogo: 16 / 9,
+    croppedAreaPixelsLogo: null,
+    showImageLogo: true,
     imageSrc: null,
     crop: { x: 0, y: 0 },
     zoom: 1,
@@ -48,7 +55,6 @@ class Builder extends React.Component {
 
     src: null,
     cropResult: null,
-    showImg: true,
   };
 
   componentDidMount() {
@@ -74,8 +80,15 @@ class Builder extends React.Component {
     }
   }
 
+  removeLogo = () => {
+    this.setState({
+      croppedLogo: undefined,
+    });
+  };
+
   // upload image
   toggleImage = (value) => this.setState({ showImage: value });
+  toggleLogo = (value) => this.setState({ showImageLogo: value });
 
   onCropChange = (crop) => {
     this.setState({ crop });
@@ -100,12 +113,31 @@ class Builder extends React.Component {
     }
   };
 
+  onLogoChange = async (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const imageDataUrl = await readFile(e.target.files[0]);
+      this.setState({
+        logoImgSrc: imageDataUrl,
+        crop: { x: 0, y: 0 },
+        zoom: 1,
+      });
+    }
+  };
+
   showCroppedImage = async () => {
     const croppedImage = await GetCropImage(
       this.state.imageSrc,
       this.state.croppedAreaPixels
     );
     this.setState({ croppedImage });
+  };
+
+  showLogoImage = async () => {
+    const croppedLogo = await GetCropImage(
+      this.state.logoImgSrc,
+      this.state.croppedAreaPixels
+    );
+    this.setState({ croppedLogo });
   };
 
   handleClose = () => {
@@ -246,10 +278,9 @@ class Builder extends React.Component {
     //   "src",
     //   JSON.stringify(this.state.src)
     // );
-    window.localStorage.setItem(
-      "cropResult",this.state.cropResult
-    );
+    window.localStorage.setItem("cropResult", this.state.cropResult);
     window.localStorage.setItem("croppedImage", this.state.croppedImage);
+    window.localStorage.setItem("croppedLogo", this.state.croppedLogo);
     window.localStorage.setItem(
       "sectionDescription",
       JSON.stringify(this.state.sectionDescription)
@@ -279,69 +310,82 @@ class Builder extends React.Component {
       croppedImage,
       aspect,
       showImage,
-
-      src,
-      cropResult,
-      showImg,
+      showImageLogo,
+      logoImgSrc,
+      croppedLogo,
+      cropLogo,
+      zoomLogo,
+      aspectLogo,
     } = this.state;
 
     return (
       <React.Fragment>
-        <form>
-          <Header
-            height={height}
-            zoomPicIn={this.zoomPicIn}
-            zoomPicOut={this.zoomPicOut}
-            toggleEdit={this.toggleEdit}
-            show={show}
-            description={description}
-            email={email}
-            tel={tel}
-            title={title}
-            handleInputChange={this.handleInputChange}
-            onDragStart={this.onDragStart}
-            onDragOver={this.onDragOver}
-            onDragEnd={this.onDragEnd}
-            items={this.state.items}
-          />
-          <Section
-            height={sectionHeight}
-            zoomPicIn={this.zoomCoverIn}
-            zoomPicOut={this.zoomCoverOut}
-            toggleSection={this.toggleSection}
-            show={showSection}
-            sectionTitle={sectionTitle}
-            sectionDescription={sectionDescription}
-            handleInputChange={this.handleInputChange}
-            buttonTxt={buttonTxt}
-            buttonTxtOne={buttonTxtOne}
-            buttonTxtTwo={buttonTxtTwo}
-            imageSrc={imageSrc}
-            crop={crop}
-            zoom={zoom}
-            croppedImage={croppedImage}
-            aspect={aspect}
-            showImage={showImage}
-            toggleImage={this.toggleImage}
-            onCropChange={this.onCropChange}
-            onCropComplete={this.onCropComplete}
-            onZoomChange={this.onZoomChange}
-            onFileChange={this.onFileChange}
-            showCroppedImage={this.showCroppedImage}
-          />
-          <Testimonial
-            height={testHeight}
-            zoomPicIn={this.zoomThumbnailIn}
-            zoomPicOut={this.zoomThumbnailOut}
-            toggleTest={this.toggleTest}
-            show={showTest}
-            onDragStart={this.onDragStart}
-            onDragOver={this.onDragOver}
-            onDragEnd={this.onDragEnd}
-            items={this.state.items}
-          />
-          <Save storeData={this.storeData} />
-        </form>
+        <Header
+          height={height}
+          zoomPicIn={this.zoomPicIn}
+          zoomPicOut={this.zoomPicOut}
+          toggleEdit={this.toggleEdit}
+          show={show}
+          description={description}
+          email={email}
+          tel={tel}
+          title={title}
+          handleInputChange={this.handleInputChange}
+          onDragStart={this.onDragStart}
+          onDragOver={this.onDragOver}
+          onDragEnd={this.onDragEnd}
+          items={this.state.items}
+          imageSrc={logoImgSrc}
+          croppedImage={croppedLogo}
+          crop={cropLogo}
+          zoom={zoomLogo}
+          aspect={aspectLogo}
+          showImage={showImageLogo}
+          toggleImage={this.toggleLogo}
+          onCropChange={this.onCropChange}
+          onCropComplete={this.onCropComplete}
+          onZoomChange={this.onZoomChange}
+          onFileChange={this.onLogoChange}
+          showCroppedImage={this.showLogoImage}
+          removeLogo={this.removeLogo}
+        />
+        <Section
+          height={sectionHeight}
+          zoomPicIn={this.zoomCoverIn}
+          zoomPicOut={this.zoomCoverOut}
+          toggleSection={this.toggleSection}
+          show={showSection}
+          sectionTitle={sectionTitle}
+          sectionDescription={sectionDescription}
+          handleInputChange={this.handleInputChange}
+          buttonTxt={buttonTxt}
+          buttonTxtOne={buttonTxtOne}
+          buttonTxtTwo={buttonTxtTwo}
+          imageSrc={imageSrc}
+          crop={crop}
+          zoom={zoom}
+          croppedImage={croppedImage}
+          aspect={aspect}
+          showImage={showImage}
+          toggleImage={this.toggleImage}
+          onCropChange={this.onCropChange}
+          onCropComplete={this.onCropComplete}
+          onZoomChange={this.onZoomChange}
+          onFileChange={this.onFileChange}
+          showCroppedImage={this.showCroppedImage}
+        />
+        <Testimonial
+          height={testHeight}
+          zoomPicIn={this.zoomThumbnailIn}
+          zoomPicOut={this.zoomThumbnailOut}
+          toggleTest={this.toggleTest}
+          show={showTest}
+          onDragStart={this.onDragStart}
+          onDragOver={this.onDragOver}
+          onDragEnd={this.onDragEnd}
+          items={this.state.items}
+        />
+        <Save storeData={this.storeData} />
       </React.Fragment>
     );
   }

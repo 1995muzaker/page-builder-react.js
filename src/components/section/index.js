@@ -1,6 +1,11 @@
 import React from "react";
 import Cropper from "react-easy-crop";
-import { SectionDiv, CallToAction } from "../../styles/Section";
+import {
+  SectionDiv,
+  CallToAction,
+  UploadContainer,
+  ApplyButton,
+} from "../../styles/Section";
 import TextEdit from "../header/TextEdit";
 import Resize from "../common";
 
@@ -93,10 +98,10 @@ class Section extends React.Component {
           />
 
           {imageSrc && (
-            <div>
+            <UploadContainer>
               {showImage ? (
                 <React.Fragment>
-                  <div className="crop-container">
+                  <div>
                     <Cropper
                       image={imageSrc}
                       crop={crop}
@@ -109,7 +114,7 @@ class Section extends React.Component {
                     />
                   </div>
 
-                  <div className="show-img">
+                  <ApplyButton>
                     <button
                       type="button"
                       onClick={() => {
@@ -121,10 +126,10 @@ class Section extends React.Component {
                     >
                       Apply
                     </button>
-                  </div>
+                  </ApplyButton>
                 </React.Fragment>
               ) : null}
-            </div>
+            </UploadContainer>
           )}
 
           {/* <div onClick={toggleSection}>

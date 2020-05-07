@@ -1,27 +1,36 @@
 import React from "react";
-import { EditDiv } from "../../styles/Header";
+import { EditDiv, UploadDiv, RemoveButton } from "../../styles/Header";
+import { FaTrashAlt } from "react-icons/fa";
 
-const Resize = ({ show, zoomPicOut, zoomPicIn, onFileChange }) => {
+const Resize = ({
+  show,
+  zoomPicOut,
+  zoomPicIn,
+  onFileChange,
+  removeLogo,
+  deleteIcon,
+}) => {
   return (
     <React.Fragment>
       {show ? (
         <EditDiv>
-          <p>Resize</p>
-          <button onClick={zoomPicOut}>-</button>
-          <button onClick={zoomPicIn}>+</button>
-
-          <div className="upload-member">
+          <UploadDiv>
             <input
               type="file"
-              required
+              className="custom-file-input"
               onChange={
                 (({ target: { validity, files: file } }) =>
                   validity.valid && this.addImg({ img: { file } }),
                 onFileChange)
               }
             />
-            <p>Upload Photo</p>
-          </div>
+          </UploadDiv>
+          <p>Resize</p>
+          <button onClick={zoomPicOut}>-</button>
+          <button onClick={zoomPicIn}>+</button>
+          <RemoveButton onClick={() => removeLogo()}>
+            <FaTrashAlt />
+          </RemoveButton>
         </EditDiv>
       ) : null}
     </React.Fragment>
