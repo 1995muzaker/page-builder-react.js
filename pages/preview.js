@@ -10,7 +10,7 @@ export default function Preview() {
   return (
     <React.Fragment>
       <Head>
-        <title>Create Next App</title>
+        <title>Preview</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <EditButton>
