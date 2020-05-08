@@ -155,22 +155,3 @@ class Builder extends React.Component {
 }
 
 export default Builder;
-
-//         <Preview
-//           height={height}
-//           testHeight={testHeight}
-//           sectionHeight={sectionHeight}
-//           description={description}
-//           croppedImage={croppedImage}
-//           croppedLogo={croppedLogo}
-//           email={email}
-//           tel={tel}
-//           title={title}
-//           sectionTitle={sectionTitle}
-//           sectionDescription={sectionDescription}
-//           buttonTxt={buttonTxt}
-//           buttonTxtOne={buttonTxtOne}
-//           buttonTxtTwo={buttonTxtTwo}
-//           items={this.state.items}
-//           testimonialTitle={this.state.testimonialTitle}
-//         />

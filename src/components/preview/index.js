@@ -1,11 +1,10 @@
 import React from "react";
 import { FaFacebookF, FaTwitter, FaGooglePlusG } from "react-icons/fa";
 import { HeaderDiv, HeaderList, InnerEdit } from "../../styles/Header";
-import TextEdit from "../header/TextEdit";
 import { SectionDiv, CallToAction } from "../../styles/Section";
 import { TestimonialDiv, InnerDiv, ImgDiv } from "../../styles/Testimonial";
 
-const Preview = ({
+const PreviewPage = ({
   height,
   testHeight,
   sectionHeight,
@@ -92,4 +91,4 @@ const Preview = ({
   );
 };
 
-export default Preview;
+export default PreviewPage;

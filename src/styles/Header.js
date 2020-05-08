@@ -5,6 +5,22 @@ export const MainDiv = styled.div`
   padding: 20px 40px;
   box-shadow: 1px 1px 7px 2px #9f9d9d;
 `;
+
+export const EditButton = styled.div`
+  & button {
+    background: #3568fa;
+    color: #fff;
+    border: 0;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-bottom: 20px;
+  }
+`;
 export const EditDiv = styled.div`
   margin: 0;
   display: flex;

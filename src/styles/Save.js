@@ -19,4 +19,8 @@ export const SaveDiv = styled.div`
     font-family: sans-serif;
     margin-top: 20px;
   }
+  & a {
+    color: #fff;
+    text-decoration: none;
+  }
 `;

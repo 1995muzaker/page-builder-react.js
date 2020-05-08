@@ -17,11 +17,15 @@ const GlobalStyles = createGlobalStyle`
           padding: 20px 20px;
           background: #f5f5f5;
         }
+        & #container{
+          display: none !important;
+        }
         & input{
           padding: 5px 10px;
           border-radius: 5px;
           border: 1px solid blue;
         }
+        
   `;
 
 export default GlobalStyles;
