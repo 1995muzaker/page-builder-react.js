@@ -18,8 +18,8 @@ export const InnerDiv = styled.div`
   justify-content: space-around;
   align-items: center;
   box-sizing: border-box;
-
-  
+  background: #eee;
+  padding: 30px;
 `;
 
 export const ImgDiv = styled.div`

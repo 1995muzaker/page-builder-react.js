@@ -6,7 +6,7 @@ export const SaveDiv = styled.div`
   text-align: right;
   box-sizing: border-box;
   & button {
-    background: blue;
+    background: #3568fa;
     color: #fff;
     border: 0;
     margin-left: 20px;
@@ -16,6 +16,7 @@ export const SaveDiv = styled.div`
     cursor: pointer;
     text-transform: uppercase;
     font-weight: bold;
-    font-family: "Montserrat",;
+    font-family: sans-serif;
+    margin-top: 20px;
   }
 `;

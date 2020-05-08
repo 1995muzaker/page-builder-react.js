@@ -1,10 +1,25 @@
 import styled from "styled-components";
 
+export const MainDiv = styled.div`
+  background: #fff;
+  padding: 20px 40px;
+  box-shadow: 1px 1px 7px 2px #9f9d9d;
+`;
 export const EditDiv = styled.div`
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  background: #fff;
+  margin-bottom: 13px;
+  border-radius: 5px;
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  width: 97%;
+  margin: auto;
+  box-shadow: 1px 1px 7px 2px #9f9d9d;
   & p {
     margin-right: 10px;
     color: #999;
@@ -27,6 +42,7 @@ export const UploadDiv = styled.div`
   width: 10%;
   .custom-file-input {
     color: transparent;
+    border: 0;
   }
   .custom-file-input::-webkit-file-upload-button {
     visibility: hidden;
@@ -108,7 +124,7 @@ export const InnerEdit = styled.div`
 
 export const RemoveButton = styled.button`
   background: transparent !important;
-   & svg {
+  & svg {
     background: transparent;
     color: #ff4b3e;
     font-size: 17px;

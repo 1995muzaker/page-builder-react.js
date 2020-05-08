@@ -1,16 +1,15 @@
 import React from "react";
 import { SaveDiv } from "../../styles/Save";
 
-const Save = ({ storeData, showPreview }) => {
+const Save = ({ storeData }) => {
   return (
     <SaveDiv>
       <button
         onClick={() => {
-          showPreview();
           storeData();
         }}
       >
-        Save
+        Save and preview
       </button>
     </SaveDiv>
   );

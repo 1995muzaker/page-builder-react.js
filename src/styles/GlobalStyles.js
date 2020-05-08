@@ -14,7 +14,13 @@ const GlobalStyles = createGlobalStyle`
           box-sizing: border-box;
         }
         body{
-          padding: 20px 50px
+          padding: 20px 20px;
+          background: #f5f5f5;
+        }
+        & input{
+          padding: 5px 10px;
+          border-radius: 5px;
+          border: 1px solid blue;
         }
   `;
 

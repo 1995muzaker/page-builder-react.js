@@ -12,10 +12,17 @@ export const SectionDiv = styled.div`
   & p {
     color: grey;
     line-height: 20px;
+    
   }
   & img {
     width: 100%;
     object-fit: contain;
+  }
+
+  & textarea {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
   }
 `;
 

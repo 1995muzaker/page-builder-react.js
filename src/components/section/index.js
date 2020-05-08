@@ -40,11 +40,7 @@ class Section extends React.Component {
     return (
       <SectionDiv>
         <h1>
-          <TextEdit
-            text={sectionTitle}
-            placeholder="Title"
-            type="text"
-          >
+          <TextEdit text={sectionTitle} placeholder="Title" type="text">
             <input
               name="sectionTitle"
               placeholder="Title"
@@ -54,20 +50,23 @@ class Section extends React.Component {
             />
           </TextEdit>
         </h1>
-        <TextEdit
-          text={sectionDescription}
-          placeholder="Description"
-          type="text"
-        >
-          <textarea
-            name="sectionDescription"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
+        <div style={{ padding: "0 140px" }}>
+          <TextEdit
+            text={sectionDescription}
             placeholder="Description"
-            rows="5"
-            value={sectionDescription}
-            onChange={handleInputChange}
-          />
-        </TextEdit>
+            type="text"
+          >
+            <textarea
+              name="sectionDescription"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-blue-300"
+              placeholder="Description"
+              rows="8"
+              col="8"
+              value={sectionDescription}
+              onChange={handleInputChange}
+            />
+          </TextEdit>
+        </div>
         <div>
           <Resize
             show={show}
@@ -125,11 +124,7 @@ class Section extends React.Component {
         </div>
         <CallToAction>
           <button onClick={(e) => e.preventDefault()}>
-            <TextEdit
-              text={buttonTxt}
-              placeholder="Text 1"
-              type="text"
-            >
+            <TextEdit text={buttonTxt} placeholder="Text 1" type="text">
               <input
                 name="buttonTxt"
                 placeholder="Text 1"
@@ -140,11 +135,7 @@ class Section extends React.Component {
             </TextEdit>
           </button>
           <button onClick={(e) => e.preventDefault()}>
-            <TextEdit
-              text={buttonTxtOne}
-              placeholder="Text 2"
-              type="text"
-            >
+            <TextEdit text={buttonTxtOne} placeholder="Text 2" type="text">
               <input
                 name="buttonTxtOne"
                 placeholder="Text 2"
@@ -155,11 +146,7 @@ class Section extends React.Component {
             </TextEdit>
           </button>
           <button onClick={(e) => e.preventDefault()}>
-            <TextEdit
-              text={buttonTxtTwo}
-              placeholder="Text 3"
-              type="text"
-            >
+            <TextEdit text={buttonTxtTwo} placeholder="Text 3" type="text">
               <input
                 name="buttonTxtTwo"
                 placeholder="Text 3"
