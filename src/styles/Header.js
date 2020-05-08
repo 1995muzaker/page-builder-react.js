@@ -3,9 +3,11 @@ import styled from "styled-components";
 export const MainDiv = styled.div`
   background: #fff;
   padding: 20px 40px;
-  box-shadow: 1px 1px 7px 2px #9f9d9d;
 `;
 
+export const ParentDiv = styled.div`
+  box-shadow: 1px 1px 7px 2px #9f9d9d;
+`;
 export const EditButton = styled.div`
   & button {
     background: #3568fa;

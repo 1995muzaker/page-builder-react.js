@@ -53,6 +53,8 @@ class StoreProvider extends React.Component {
     cropResult: null,
     preview: true,
     navShow: "",
+    footer:
+      "The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor The Lorem Ipsum dolor",
   };
 
   componentDidMount() {
@@ -311,6 +313,7 @@ class StoreProvider extends React.Component {
       JSON.stringify(this.state.sectionDescription)
     );
     window.localStorage.setItem("preview", JSON.stringify(this.state.preview));
+    window.localStorage.setItem("footer", JSON.stringify(this.state.footer));
   };
 
   readFile = (file) => {

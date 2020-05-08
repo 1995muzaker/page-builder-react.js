@@ -3,7 +3,7 @@ import React from "react";
 import GlobalStyles from "../src/styles/GlobalStyles";
 import PreviewPage from "../src/components/preview";
 import { StoreProvider, StoreConsumer } from "../src/store";
-import { MainDiv, EditButton } from "../src/styles/Header";
+import { MainDiv, EditButton, ParentDiv } from "../src/styles/Header";
 import Link from "next/link";
 
 export default function Preview() {
@@ -37,27 +37,31 @@ export default function Preview() {
             croppedLogo,
             items,
             testimonialTitle,
+            footer,
           }) => (
-            <MainDiv>
-              <PreviewPage
-                height={height}
-                testHeight={testHeight}
-                sectionHeight={sectionHeight}
-                description={description}
-                croppedImage={croppedImage}
-                croppedLogo={croppedLogo}
-                email={email}
-                tel={tel}
-                title={title}
-                sectionTitle={sectionTitle}
-                sectionDescription={sectionDescription}
-                buttonTxt={buttonTxt}
-                buttonTxtOne={buttonTxtOne}
-                buttonTxtTwo={buttonTxtTwo}
-                items={items}
-                testimonialTitle={testimonialTitle}
-              />
-            </MainDiv>
+            <ParentDiv>
+              <MainDiv>
+                <PreviewPage
+                  height={height}
+                  testHeight={testHeight}
+                  sectionHeight={sectionHeight}
+                  description={description}
+                  croppedImage={croppedImage}
+                  croppedLogo={croppedLogo}
+                  email={email}
+                  tel={tel}
+                  title={title}
+                  sectionTitle={sectionTitle}
+                  sectionDescription={sectionDescription}
+                  buttonTxt={buttonTxt}
+                  buttonTxtOne={buttonTxtOne}
+                  buttonTxtTwo={buttonTxtTwo}
+                  items={items}
+                  testimonialTitle={testimonialTitle}
+                  footer={footer}
+                />
+              </MainDiv>
+            </ParentDiv>
           )}
         </StoreConsumer>
       </StoreProvider>

@@ -29,3 +29,21 @@ export const ImgDiv = styled.div`
     object-fit: cover;
   }
 `;
+
+export const FooterDiv = styled.div`
+  background: #f5f5f5;
+  padding: 20px 140px;
+  & > div {
+    text-align: center;
+  }
+  & p {
+    margin: 0px;
+    text-align: center;
+    color: grey;
+  }
+  & textarea {
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+  }
+`;

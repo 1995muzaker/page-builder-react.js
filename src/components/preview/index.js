@@ -2,7 +2,12 @@ import React from "react";
 import { FaFacebookF, FaTwitter, FaGooglePlusG } from "react-icons/fa";
 import { HeaderDiv, HeaderList, InnerEdit } from "../../styles/Header";
 import { SectionDiv, CallToAction } from "../../styles/Section";
-import { TestimonialDiv, InnerDiv, ImgDiv } from "../../styles/Testimonial";
+import {
+  TestimonialDiv,
+  InnerDiv,
+  ImgDiv,
+  FooterDiv,
+} from "../../styles/Testimonial";
 
 const PreviewPage = ({
   height,
@@ -21,6 +26,7 @@ const PreviewPage = ({
   buttonTxtTwo,
   testimonialTitle,
   items,
+  footer,
 }) => {
   return (
     <div>
@@ -87,6 +93,9 @@ const PreviewPage = ({
           ))}
         </InnerDiv>
       </TestimonialDiv>
+      <FooterDiv>
+        <p>{footer}</p>
+      </FooterDiv>
     </div>
   );
 };
