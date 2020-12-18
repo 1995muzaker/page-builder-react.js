@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "dompurify": "^2.0.10",
+    "dompurify": "^2.0.17",
     "next": "9.3.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",
